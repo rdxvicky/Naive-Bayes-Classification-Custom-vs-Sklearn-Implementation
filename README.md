@@ -1,8 +1,8 @@
-# **ML-2024-Assignment - 2 (NB)**
-
-<div style="position: absolute; top: 10px; right: 10px;">
+<div style="position: absolute; top: 1px; right: -1px;">
     <img src="https://github.com/user-attachments/assets/934c393e-0438-46b0-a004-4acc53996720" alt="iitjlogo" width="100"/>
 </div>
+
+# **ML-2024-Assignment - 2 (NB)**
 
 **Title:** **Comparison of Custom Naive Bayes and Sklearn Naive Bayes Models for Binary Classification**
 
@@ -117,6 +117,17 @@ Both models were trained on **80% of the data** and tested on the remaining **20
 
 ---
 
+## **Why Noise is Used and How it Improves Results**
+
+In the custom Naive Bayes implementation, **Gaussian noise** is introduced during prediction by adding random perturbations to the feature means. This improves performance in the following ways:
+
+1. **Prevents Overfitting:** Noise ensures that the model does not overly rely on exact feature values.
+2. **Improves Generalization:** The classifier becomes more robust to variations in new data.
+3. **Balances Bias-Variance Trade-off:** Noise allows the model to avoid being too simplistic or too complex.
+4. **Enhances Numerical Stability:** Adjusting the variance prevents division errors when working with low-variance features.
+
+---
+
 ## 5. **Conclusion and Future Work**
 
 ### 5.1 **Conclusion**
@@ -135,10 +146,10 @@ This project demonstrates that both **Custom Naive Bayes** and **Sklearn Naive B
 
 ## 6. **Source Code**
 - **[Colab Link](https://colab.research.google.com/drive/17df-jWUhNRvYdLiimxdDjGJbUEd1cssQ?usp=sharing)**  
-- **[Shortened Link](https://smalldev.tools/share-bin/gzIzlkAq)**
+- **[Python File Link](https://smalldev.tools/share-bin/gzIzlkAq)**
 
 ---
 
 ## 7. **References**
-- [Sklearn Documentation](https://scikit-learn.org)  
+- [Sklearn Documentation](https://scikit-learn.org/1.5/modules/naive_bayes.html)  
 - [Ionosphere Dataset](https://archive.ics.uci.edu/ml/datasets/Ionosphere)
