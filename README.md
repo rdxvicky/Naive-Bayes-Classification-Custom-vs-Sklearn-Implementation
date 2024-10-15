@@ -69,17 +69,18 @@ The custom Naive Bayes model was built from scratch with the following key aspec
 ## 5. Visualizations
 
 ### 5.1 Confusion Matrices
-- **Custom Naive Bayes Confusion Matrix**
-  ![Custom Naive Bayes Confusion Matrix](./images/custom_naive_bayes_confusion.png)
-
-- **Sklearn Naive Bayes Confusion Matrix**
-  ![Sklearn Naive Bayes Confusion Matrix](./images/sklearn_naive_bayes_confusion.png)
+- **Custom Naive Bayes Confusion Matrix** VS **Sklearn Naive Bayes Confusion Matrix**
+  
+  ![cfmatrix](https://github.com/user-attachments/assets/ff756ecb-a018-471a-864b-77bf8b45c2f7)
 
 ### 5.2 ROC Curve Comparison
-![ROC Curve Comparison](./images/roc_curve_comparison.png)
+- 
+   ![RocCurve](https://github.com/user-attachments/assets/dfddc58c-f4e8-4127-b2bd-058c1013945a)
+
 
 ### 5.3 Metrics Comparison
-![Metrics Comparison](./images/metrics_comparison.png)
+- 
+   ![PerformanceCNBSKNB](https://github.com/user-attachments/assets/01115937-82b6-412b-93c3-6c4b6b54b496)
 
 ---
 
