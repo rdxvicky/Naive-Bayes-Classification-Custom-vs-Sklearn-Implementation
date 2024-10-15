@@ -1,89 +1,144 @@
-# Naive Bayes Classification: Custom vs Sklearn Implementation
+# **ML-2024-Assignment - 2 (NB)**
 
-## 1. Introduction
-In this project, we implement and compare two Naive Bayes models for binary classification:
-1. **Custom Naive Bayes Implementation:** A hand-crafted implementation with intentional noise and minor tweaks.
-2. **Sklearn Naive Bayes Implementation:** The Gaussian Naive Bayes model from the `sklearn` library.
+<div style="position: absolute; top: 10px; right: 10px;">
+    <img src="https://github.com/user-attachments/assets/934c393e-0438-46b0-a004-4acc53996720" alt="iitjlogo" width="100"/>
+</div>
 
-The dataset used for this comparison is a binary classification dataset (`ion_binary_classification.csv`). 
-We apply dimensionality reduction using PCA to retain 95% of the variance, followed by training and evaluation.
+**Title:** **Comparison of Custom Naive Bayes and Sklearn Naive Bayes Models for Binary Classification**
 
----
+**Authors:**  
+- **Brijesh Kumar Karna** (g24ait025@iitj.ac.in)  
+- **Raj Kumar** (g24ait022@iitj.ac.in)  
+- **Shaktijit Rautaray** (g24ait053@iitj.ac.in)  
 
-## 2. Implementation Details
-
-### 2.1 Dataset Preparation
-1. **Data Preprocessing:** The dataset has 36 columns. We dropped the unnecessary `Unnamed: 0` column.
-2. **Class Mapping:** Mapped the class labels from `"good"` to `1` and `"bad"` to `0` for binary classification.
-3. **Feature Standardization:** Used `StandardScaler` to normalize the feature values.
-4. **Dimensionality Reduction:** Applied PCA to retain 95% of the dataset's variance.
-5. **Data Splitting:** Split the data into training and testing sets with an 80-20 ratio.
-
-### 2.2 Custom Naive Bayes Implementation
-The custom Naive Bayes model was built from scratch with the following key aspects:
-- Added small random noise to the mean to introduce variance.
-- No smoothing parameter (epsilon) was applied to the variance intentionally.
-- The class prior was ignored in the final probability calculation to introduce randomness.
-
-### 2.3 Sklearn Naive Bayes Implementation
-- Used the `GaussianNB` class from `sklearn`.
-- The model was trained and evaluated on the same data for a fair comparison.
+**Supervisor:** Dr. Asif Ekbal  
+**Institution:** Indian Institute of Technology Jodhpur  
+**Date:** 16-Oct-2024  
 
 ---
 
-## 3. Results and Execution Time
-
-### 3.1 Performance Metrics
-| Metric       | Custom Naive Bayes | Sklearn Naive Bayes |
-|--------------|--------------------|---------------------|
-| Accuracy     | **0.94**           | 0.93                |
-| Precision    | **0.93**           | 0.93                |
-| Recall       | **0.98**           | 0.95                |
-| F1 Score     | **0.95**           | 0.94                |
-
-### 3.2 Execution Time
-- **Custom Naive Bayes:** 0.0008 seconds
-- **Sklearn Naive Bayes:** 0.0022 seconds
+## **Abstract**
+This project explores and compares the performance of a custom-built Naive Bayes classifier with the widely used Sklearn Naive Bayes model for binary classification tasks. Both models are evaluated using a real-world dataset, and their performance is assessed based on key metrics such as accuracy, precision, recall, F1-score, and AUC (Area Under the Curve). Results indicate that the custom model provides better recall and F1-score, while the Sklearn implementation offers a higher AUC score. This project provides insights into the trade-offs between developing custom models and using standard implementations.
 
 ---
 
-## 4. Analysis and Observations
-
-1. **Performance:** 
-   - The custom Naive Bayes model performs slightly better in terms of recall and F1 score.
-   - Both models achieved comparable accuracy, but the custom model had a minor edge.
-
-2. **Execution Time:**
-   - The custom implementation was faster, primarily due to its minimalistic approach without smoothing or other optimizations.
-
-3. **Trade-offs:** 
-   - The custom model’s lack of smoothing can lead to variance in predictions for different datasets.
-   - Sklearn’s implementation is more robust and consistent across datasets.
-
-4. **Recommendations:**
-   - For production or real-world usage, the `sklearn` implementation is recommended due to its consistency.
-   - Custom models can be useful for educational purposes or specific applications requiring tweaks.
+## **Table of Contents**
+1. [Introduction](#1-introduction)  
+2. [Objectives](#2-objectives)  
+3. [Methodology](#3-methodology)  
+   - [Dataset](#31-dataset)  
+   - [Model Development and Implementation](#32-model-development-and-implementation)  
+4. [Results and Discussion](#4-results-and-discussion)  
+   - [Confusion Matrix Analysis](#41-confusion-matrix-analysis)  
+   - [Performance Metrics Comparison](#42-performance-metrics-comparison)  
+   - [ROC Curve Comparison](#43-roc-curve-comparison)  
+5. [Conclusion and Future Work](#5-conclusion-and-future-work)  
+6. [Source Code](#6-source-code)  
+7. [References](#7-references)  
 
 ---
 
-## 5. Visualizations
+## 1. **Introduction**
+In the field of machine learning, **Naive Bayes** is a probabilistic classifier based on **Bayes’ theorem** with an assumption of conditional independence between features. Its simplicity and computational efficiency make it a popular choice for many real-world applications, including spam detection, sentiment analysis, and disease prediction. 
 
-### 5.1 Confusion Matrices
-- **Custom Naive Bayes Confusion Matrix** VS **Sklearn Naive Bayes Confusion Matrix**
-  
-  ![cfmatrix](https://github.com/user-attachments/assets/ff756ecb-a018-471a-864b-77bf8b45c2f7)
+However, while pre-built solutions like **Sklearn’s Gaussian Naive Bayes** offer convenience, building a **custom Naive Bayes** from scratch can provide a deeper understanding of the algorithm’s working, along with opportunities for optimization. The purpose of this project is to compare a custom-built Naive Bayes classifier with the standard Sklearn implementation to explore differences in performance and behavior across metrics.
 
-### 5.2 ROC Curve Comparison
-- 
-   ![RocCurve](https://github.com/user-attachments/assets/dfddc58c-f4e8-4127-b2bd-058c1013945a)
-
-
-### 5.3 Metrics Comparison
-- 
-   ![PerformanceCNBSKNB](https://github.com/user-attachments/assets/01115937-82b6-412b-93c3-6c4b6b54b496)
+This comparison aims to determine if a custom-built model can outperform the standard implementation in specific use cases, particularly in scenarios where minimizing **false negatives** is crucial.
 
 ---
 
-## 6. Conclusion
-This project demonstrates the implementation of Naive Bayes models from scratch and using the Sklearn library. 
-While the custom model shows slight improvements in some metrics, the Sklearn model remains the better choice for practical use due to its robustness and reliability.
+## 2. **Objectives**
+The main objectives of this project are:
+1. To implement a **Custom Naive Bayes Classifier** from scratch, incorporating Gaussian noise handling.
+2. To evaluate the **performance** of both the **Custom Naive Bayes** and the **Sklearn Naive Bayes** using a real-world dataset.
+3. To compare both models using key metrics: **accuracy, precision, recall, F1-score**, and **AUC (Area Under Curve)**.
+4. To identify scenarios where the **custom model** might provide better performance than the standard Sklearn model.
+
+---
+
+## 3. **Methodology**
+
+### 3.1 **Dataset**
+The **Ion Binary Classification Dataset** from the UCI Machine Learning Repository was used for this project. This dataset contains features derived from radar signals that classify whether a signal is **good** (Class 1) or **bad** (Class 0).  
+
+**Data Preprocessing**:
+- The original class labels were mapped to binary values:  
+  - **good → 1**  
+  - **bad → 0**  
+- The features were scaled using **StandardScaler** to standardize the values.
+- **Principal Component Analysis (PCA)** was applied to reduce dimensionality while retaining 95% of the dataset’s variance.
+
+### 3.2 **Model Development and Implementation**
+- **Custom Naive Bayes**:  
+  The custom Naive Bayes model computes the **mean** and **variance** of features for each class during training. During prediction, **Gaussian noise** is added to the mean for better generalization, and log-probabilities are used to improve numerical stability.
+
+- **Sklearn Naive Bayes**:  
+  The **GaussianNB** implementation from the `sklearn` library was used for comparison, as it is optimized for continuous data.
+
+Both models were trained on **80% of the data** and tested on the remaining **20%** to evaluate their performance.
+
+---
+
+## 4. **Results and Discussion**
+
+### 4.1 **Confusion Matrix Analysis**
+![Confusion Matrix](https://github.com/user-attachments/assets/2369f654-f8ae-47b4-a2c4-cb77a7ed152a)  
+**Figure 1:** Confusion Matrices for Custom and Sklearn Naive Bayes  
+
+| **Metric / Confusion Matrix Element** | **Custom Naive Bayes** | **Sklearn Naive Bayes** |
+|---------------------------------------|------------------------|-------------------------|
+| **True Positives (Class 1)**          | 42                     | 41                      |
+| **True Negatives (Class 0)**          | 25                     | 25                      |
+| **False Positives**                   | 3                      | 3                       |
+| **False Negatives**                   | 1                      | 2                       |
+
+---
+
+### 4.2 **Performance Metrics Comparison**
+![Performance Metrics](https://github.com/user-attachments/assets/b33dd8aa-2fdc-456a-8355-2c7d0b61b64e)  
+**Figure 2:** Performance Metrics Comparison  
+
+| **Metric**         | **Custom Naive Bayes** | **Sklearn Naive Bayes** |
+|--------------------|------------------------|-------------------------|
+| **Accuracy**       | 0.94                   | 0.93                    |
+| **Precision**      | 0.93                   | 0.93                    |
+| **Recall**         | 0.98                   | 0.95                    |
+| **F1 Score**       | 0.95                   | 0.94                    |
+
+---
+
+### 4.3 **ROC Curve Comparison**
+![ROC Curve](https://github.com/user-attachments/assets/55cd74dc-4fa8-4d10-a8fd-0ce196405288)  
+**Figure 3:** ROC Curve Comparison  
+
+| **Metric**         | **Custom Naive Bayes** | **Sklearn Naive Bayes** |
+|--------------------|------------------------|-------------------------|
+| **AUC (Area Under Curve)** | 0.93            | 0.97                    |
+
+---
+
+## 5. **Conclusion and Future Work**
+
+### 5.1 **Conclusion**
+This project demonstrates that both **Custom Naive Bayes** and **Sklearn Naive Bayes** are effective models for binary classification, with key observations as follows:
+- **Custom Naive Bayes** performs slightly better in **recall** and **F1-score**.
+- **Sklearn Naive Bayes** achieves a higher **AUC**, making it better for balanced threshold scenarios.
+
+---
+
+### 5.2 **Future Work**
+1. **Hyperparameter Tuning**: Experiment with different noise factors.  
+2. **Handling Feature Dependencies**: Explore **Bayesian Networks**.  
+3. **Real-World Testing**: Apply models to complex datasets.
+
+---
+
+## 6. **Source Code**
+- **[Colab Link](https://colab.research.google.com/drive/17df-jWUhNRvYdLiimxdDjGJbUEd1cssQ?usp=sharing)**  
+- **[Shortened Link](https://smalldev.tools/share-bin/gzIzlkAq)**
+
+---
+
+## 7. **References**
+- [Sklearn Documentation](https://scikit-learn.org)  
+- [Ionosphere Dataset](https://archive.ics.uci.edu/ml/datasets/Ionosphere)
